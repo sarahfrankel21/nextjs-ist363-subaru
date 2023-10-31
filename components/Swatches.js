@@ -6,18 +6,17 @@ const Swatches=({changeHandler,
     data 
 })=> {
 
-    return<ul className={styles.swatch__list}> {
-        data.map((item)=>{
+    return<ul className={styles.swatch__list}> 
+    {data.map((item)=>{
         return <li className={styles.swatch__item}
-        style={{backgroundColor: item}}
+        style={{backgroundColor: item.hex}}
         onClick={()=>{
             changeHandler(item);
-        }
-        }
+        }}
         >
-            {
-            
-            item}</li>
-    })}</ul>
+        </li>
+        })}
+        </ul>
+    
 }
 export default Swatches;

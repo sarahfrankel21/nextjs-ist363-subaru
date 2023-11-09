@@ -16,6 +16,11 @@ LOGO <br/>
             </Link>
         </li>
         <li>
+            <Link href="/vehicles"> 
+            Vehicles
+            </Link>
+        </li>
+        <li>
             <Link href="/contact"> 
             Contact
             </Link>

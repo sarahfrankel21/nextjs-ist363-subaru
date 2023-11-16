@@ -4,9 +4,9 @@ import {getVehicleBySlug, getAllVehicleSlugs} from '../../lib/api';
 //water fall get static paths
 
 export async function getStaticPaths(){
-    const pathsArr = getAllVehicleSlugs();
+    const vehicles =await getAllVehicleSlugs();
     const paths=vehicles.map((vehicle)=>{
-        const {slug}= vehicle.node
+        const {slug}= vehicle.node;
         return{
             params: {
                 id:slug
@@ -21,8 +21,9 @@ export async function getStaticPaths(){
 
 
 }
+//get static paths
 export async function getStaticProps({params}){
-    const vehicleData =getVehicleBySlug(params.id);
+    const vehicleData =await getVehicleBySlug(params.id);
     return {
         props :{
             vehicleData
@@ -31,12 +32,11 @@ export async function getStaticProps({params}){
     }
 }
 const SingleVehiclePage=({vehicleData})=>{
-const {model,price}= vehicleData;
+const {title,slug}= vehicleData;
 return <Layout> 
-<h1> {model} </h1>
-<h2> {price} </h2>
-</Layout>
+<h1> {title} </h1>
 
+</Layout>
 
 }
 export default SingleVehiclePage;

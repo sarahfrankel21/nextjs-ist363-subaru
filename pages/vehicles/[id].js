@@ -36,12 +36,14 @@ const SingleVehiclePage=({vehicleData})=>{
 const {title,slug, featuredImage}= vehicleData;
 return <Layout> 
 <h1> {title} </h1>
+{featuredImage &&
 <Image
 src={featuredImage.node.sourceUrl}
 alt={featuredImage.node.altText}
 width={featuredImage.node.mediaDetails.width}
 height={featuredImage.node.mediaDetails.height}
 />
+}
 
 </Layout>
 

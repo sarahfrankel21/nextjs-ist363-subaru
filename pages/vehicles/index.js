@@ -1,3 +1,6 @@
+import Container from'../../components/Container';
+import Grid from '../../components/Grid';
+import Image from 'next/image';
 import Layout from '../../components/Layout'
 import { getAllVehicles } from '../../lib/api';
 import Link from "next/link";
@@ -13,10 +16,22 @@ export async function getStaticProps(){
 const VehiclesPage = ({ vehicles }) => {
     return <Layout>
         <h1>Vehicles</h1>
+        <Container>
+            <Grid> 
+
         <ul>
             {vehicles.map((vehicle, index) => {
-                const { title, slug } = vehicle.node;
+                const { title, slug, vehicleInformation} = vehicle.node;
+                const{trimLevels}=vehicleInformation;
                 return <li key={index}>
+                    {trimLevels&& trimLevels[0].images.thumbnail&&
+                    <Image
+                    scr={trimLevels[0].images.thumbnail.node.sourceUrl}
+                    alt={trimLevels[0].images.thumbnail.node.altText}
+                    width={trimLevels[0].images.thumbnail.node.mediaDetails.width}
+                    height={trimLevels[0].images.thumbnail.node.mediaDetails.height}
+                    />
+                    }
                     <h3>{title}</h3>
                    
                     <p>
@@ -25,6 +40,8 @@ const VehiclesPage = ({ vehicles }) => {
                 </li>
             })}
         </ul>
+        </Grid>
+        </Container>
     </Layout>
 }  
 export default VehiclesPage;

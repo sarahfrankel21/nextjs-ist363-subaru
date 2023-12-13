@@ -1,14 +1,35 @@
-import styles from './grid.module.scss';
+
 import Image from 'next/Image';
-import link from 'next/link';
+import Link from 'next/link';
 import {motion} from "framer-motion";
+import styles from './grid.module.scss';
 
 const Grid = ({items}) => {
-    return <motion.section className={styles.grid}>
+    const sectionVariants={
+        closed: {opacity: 0},
+        open: {
+            opacity:1,
+            staggerChildren: 0.2
+        }
+    }
+
+const articleVariants={
+    closed:{ 
+        y:50, opacity:0
+    },
+    open:{y:0, opacity:1}
+}
+    return <motion.section 
+    initial="closed"
+    animate="open"
+    variants={sectionVariants}
+    className={styles.grid}>
         {items.map((item, index) => {
                     const { title, slug, vehicleInformation } = item.node;
                     const { trimLevels } = vehicleInformation;
-                    return <motion.article key={index}>
+                    return <motion.article 
+                    variants={articleVariants}
+                    key={index}>
                         {trimLevels && trimLevels[0].images.thumbnail && 
                             <Image 
                                 src={trimLevels[0].images.thumbnail.node.sourceUrl}

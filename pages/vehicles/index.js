@@ -4,7 +4,7 @@ import FilterBar from '../../components/FilterBar';
 import Grid from '../../components/Grid';
 import Image from 'next/image';
 import Layout from '../../components/Layout';
-import Link from 'next/link';
+
 
 import { getAllVehicles, getVehicleTypes } from '../../lib/api';
 

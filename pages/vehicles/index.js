@@ -1,60 +1,52 @@
 import { useState } from 'react';
+
+import { getAllVehicles } from '../../lib/api';
+
 import Container from '../../components/Container';
-import FilterBar from '../../components/FilterBar';
 import Grid from '../../components/Grid';
-import Image from 'next/image';
+import Heading from '../../components/Heading';
 import Layout from '../../components/Layout';
+import Link from 'next/link';
+import Tabs from '../../components/Tabs';
 
-
-import { getAllVehicles, getVehicleTypes } from '../../lib/api';
+import { filterAllVehicleTypes } from '../../lib/utilities';
 
 export async function getStaticProps() {
-    const vehicles = await getAllVehicles();
-    const vehicleTypes = await getVehicleTypes();
-
-    vehicleTypes.unshift({
-        "node": {
-          "name": "All",
-          "slug": "all"
-        }
-      },);
-
+    const vehiclesData = await getAllVehicles();
     return {
-        props: {
-            vehicles,
-            vehicleTypes
-        }
+      props: {
+        vehiclesData
+      }, 
     }
+  }
+
+const VehiclesPage = ({vehiclesData}) => {
+    const [activeVehicleType, setActiveVehicleType] = useState("all");
+    const vehicleTypes = ["all", ...filterAllVehicleTypes(vehiclesData)];
+
+    const filteredVehicles = vehiclesData.filter((vehicle) => {
+        const { vehicleTypes } = vehicle.node.vehicleInformation;
+        return activeVehicleType === "all" || vehicleTypes.includes(activeVehicleType)
+    });
+
+    return (
+        <Layout>
+          <Container>
+            <Heading 
+              level={1} 
+              textAlign="center"
+            >Vehicles</Heading>
+            <Tabs 
+              items={vehicleTypes} 
+              activeItem={activeVehicleType}
+              changeHandler={setActiveVehicleType}  
+            />
+            <Grid 
+              activeItem={activeVehicleType}
+              items={filteredVehicles}
+            />
+          </Container>
+        </Layout>
+    )
 }
-const VehiclesPage = ({ vehicles, vehicleTypes }) => {
-    // add "all" to vehicleTypes
-    const [activeVehicleType, setActiveVehicleType] = useState('all');
-
-    // filter vehicles by activeVehicleType
-    const filteredVehicles = activeVehicleType === 'all' ? 
-        vehicles 
-        : 
-        vehicles.filter((vehicle) => {
-            const { vehicleTypes } = vehicle.node;
-            const vehicleTypeSlugs = vehicleTypes.edges.map((vehicleType) => {
-                return vehicleType.node.slug;
-            });
-            return vehicleTypeSlugs.includes(activeVehicleType);
-     });
-
-    return <Layout>
-        <h1>Vehicles</h1>
-        <Container>
-            <FilterBar 
-                items={vehicleTypes} 
-                activeItem={activeVehicleType} 
-                setActiveItem={setActiveVehicleType}
-            />
-            <Grid
-                items={filteredVehicles}
-                
-            />
-        </Container>
-    </Layout>
-}  
-export default VehiclesPage;
+export default VehiclesPage

@@ -1,46 +1,57 @@
+import CallToAction from '../../components/CallToAction';
+import ColorPicker from '../../components/ColorPicker';
+import Container from '../../components/Container';
 import Image from 'next/image';
 import Layout from '../../components/Layout';
-import { getVehicleBySlug, getAllVehicleSlugs } from '../../lib/api';
+import Showcase from '../../components/Showcase';
+import TrimPicker from '../../components/TrimPicker';
 
-// WATERFALL
-// 1. getStaticPaths
+import { getAllVehicleSlugs, getVehicleDataBySlug } from '../../lib/api'
+
 export async function getStaticPaths() {
     const vehicles = await getAllVehicleSlugs();
+    //console.log({vehicles});
     const paths = vehicles.map((vehicle) => {
-        const { slug } = vehicle.node;
         return {
             params: {
-                id: slug
+                id: vehicle.node.slug
             }
         }
-    });
+    })
+    
     return {
-        paths,
-        fallback: false
+      paths: paths,
+      fallback: false, // can also be true or 'blocking'
     }
-}
-// 2. getStaticProps
-export async function getStaticProps({ params }) {
-    const vehicleData = await getVehicleBySlug(params.id);
+  }
+  
+  // `getStaticPaths` requires using `getStaticProps`
+  export async function getStaticProps({params}) {
+    const { id } = params;
+    //console.log({id});
+    const vehicleData = await getVehicleDataBySlug(id);
     return {
-        props : {
-            vehicleData
-        }
+      // Passed to the page component as props
+      props: { 
+        vehicleData
+      },
     }
-}
-// 3. page component
-const SingleVehiclePage = ({ vehicleData }) => {
-    const { title, slug, featuredImage } = vehicleData;
+  }
+  
+  export default function SingleVehiclePage({ vehicleData }) {
+    const { title, featuredImage, vehicleInformation } = vehicleData;
+    const { showcase, trimLevels, vehicleColors  } = vehicleInformation;
+    //console.log({trimLevels});
     return <Layout>
-        <h1>{title}</h1>
-        {featuredImage &&
-            <Image 
-                src={featuredImage.node.sourceUrl}
-                alt={featuredImage.node.altText}
-                width={featuredImage.node.mediaDetails.width}
-                height={featuredImage.node.mediaDetails.height}
-            />
-        }
+        <Showcase 
+          subheadline={`Subaru ${title}`}
+          headline={showcase.headline ? showcase.headline : null}
+          backgroundImage={featuredImage ? featuredImage.node : null}
+        />
+        <Container>
+          <TrimPicker trimLevels={trimLevels} />
+          <ColorPicker vehicleColors={vehicleColors} />
+        </Container>
+        <CallToAction vehicleName={title} />
     </Layout>
 }
-export default SingleVehiclePage;

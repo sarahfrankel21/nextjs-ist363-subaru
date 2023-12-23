@@ -1,32 +1,27 @@
 @mixin breakpoint($value) {
-	// need to validate $value
 
-	// if a string use standard breakpoints
-	@if type-of($value)=='string' {
-		@if ($value =="xs" or $value =="phone") {
+	@if type-of($value) == 'string' {
+		@if ($value == "xs" or $value == "phone") {
 			@media (max-width: 699px) {
 				@content;
 			}
 		}
-
-		@else if ($value =="sm" or $value =="tablet") {
+		@else if ($value == "sm" or $value == "tablet") {
 			@media (min-width: 700px) {
 				@content;
 			}
 		}
 
-		@else if ($value =="md" or $value =="laptop") {
+		@else if ($value == "md" or $value == "laptop") {
 			@media(min-width: 980px) {
 				@content;
 			}
 		}
-
-		@else if($value =="lg" or $value =="desktop") {
+		@else if($value == "lg" or $value == "desktop") {
 			@media (min-width: 1140px) {
 				@content;
 			}
 		}
-
 		@else if($value =="xl" or $value =="tvscreen") {
 			@media (min-width: 1260px) {
 				@content;
@@ -37,11 +32,10 @@
 			@warn "Breakpoint mixin supports: xs or phone, sm or tablet, md or laptop, lg or desktop, xl or tvscreen as string variables";
 		}
 
-	}
+	} 
 
-	// if value then use value as minimum width.
-	@else if is-length($value) {
-		@media(min-width: #{$value}) {
+	@else if is-length($value){
+		@media(min-width: #{$value}){
 			@content;
 		}
 	}
@@ -50,8 +44,35 @@
 		@warn "Breakpoint mixin supports: string variables or relative units";
 	}
 
-	// if a length value than use that
+	
+}
 
-	// error warn if string does not match or it is not a length
+@mixin textAligns() {
+	$textAligns: left, center, right;
 
+	@each $textAlign in $textAligns {
+		&.text-align-#{$textAlign} {
+			text-align: $textAlign;
+		}
+	}
+}
+
+@mixin colors() {
+	$colors: black, white;
+
+	@each $color in $colors {
+		&.color-#{$color} {
+			color: $color;
+		}
+	}
+}
+
+@mixin justifyContent(){
+	$values: flex-start, flex-end, center, space-between, space-around, 
+	space-evenly;
+	@each $vaule in $vaules{
+		&.justify-content-#{values} {
+			justify-content: $value;
+		};
+	}
 }

@@ -1,32 +1,34 @@
-import Link from "next/link";
+import { useState } from 'react';
 
-const Header =()=>{
-    return <header>
-LOGO <br/>
-<nav> 
-    <ul>
-        <li>
-            <Link href="/"> 
-            Home
-            </Link>
-        </li>
-        <li>
-            <Link href="/about"> 
-            About
-            </Link>
-        </li>
-        <li>
-            <Link href="/vehicles"> 
-            Vehicles
-            </Link>
-        </li>
-        <li>
-            <Link href="/contact"> 
-            Contact
-            </Link>
-        </li>
-    </ul>
-</nav>
-    </header>
+import Button from './Button';
+import ButtonUI from './ButtonUI';
+import Link from 'next/link';
+import Logo from './Logo';
+import NavDesktop from './NavDesktop';
+import NavOverlay from './NavOverlay';
+
+import styles from './header.module.scss';
+
+const Header = () => {
+    const [isMenuVisible, setMenuVisible] = useState(false);
+    return <header className={styles.header}>
+        <Link href="/">
+            <Logo />
+        </Link>
+        <ButtonUI 
+            icon="menu" 
+            clickHandler={() => {
+                setMenuVisible(true);
+            }}
+        />
+        <NavDesktop />
+        {isMenuVisible && 
+            <NavOverlay 
+                closeHandler={() => {
+                    setMenuVisible(false);
+                }} 
+            />
+        }
+    </header>   
 }
-export default Header;
+export default Header

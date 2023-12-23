@@ -1,4 +1,24 @@
-import Button from '../components/Button';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import Layout from '../components/Layout';
+
+const Homepage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/vehicles');
+  }, []);
+
+  return <Layout>
+   
+  </Layout>
+}
+export default Homepage
+
+
+
+/* import Button from '../components/Button';
 import CarColorPicker from '../components/CarColorPicker';
 import Layout from '../components/Layout';
 
@@ -17,4 +37,4 @@ const Homepage = () => {
     <Button label="Learn more" />
   </Layout>
 }
-export default Homepage;
+export default Homepage; */

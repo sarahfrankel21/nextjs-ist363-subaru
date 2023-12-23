@@ -1,19 +1,30 @@
+import classnames from 'classnames/bind';
+import Icon from './Icon';
 import styles from './swatches.module.scss';
 
-const Swatches = ({ 
-    changeHandler,
-    data 
-}) => {
-    return <ul className={styles.swatch__list}>
-        {data.map((item) => {
-            return <li 
-                className={styles.swatch__item}
-                style={{ backgroundColor: item.hex }}
-                onClick={() => {
-                    changeHandler(item);
-                }}
-            >
-            </li>
+const cx = classnames.bind(styles);
+
+const Swatches = ({ colors, clickHandler, activeColor }) => {
+    return <ul className={styles.swatches}>
+        {colors.map((color) => {
+             const { hex } = color;
+             let swatchClasses = cx({
+                swatch: true,
+                active: color.slug === activeColor.slug
+             });
+             return <li 
+                 className={swatchClasses}
+                 onClick={() => {
+                    clickHandler(color);
+                 }}
+                 style={{
+                     backgroundColor: hex
+                 }}
+             >
+                {color.slug === activeColor.slug &&
+                    <Icon icon="check" />
+                }
+             </li>
         })}
     </ul>
 }

@@ -1,9 +1,18 @@
+@use '../sass/abstracts/vars';
+
 .btn {
-    background-color: green;
-    &.primary {
-        background-color: black;
-    }
-    &.secondary {
-        background-color: pink;
-    }
+    border: 0;
+    padding: 1rem 2rem;
+    font-family: Arial;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.primary {
+    background-color: vars.$color_blue;
+    color: white;
+}
+.secondary {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
 }

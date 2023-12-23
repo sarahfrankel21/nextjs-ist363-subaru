@@ -1,50 +1,65 @@
+import { motion, AnimatePresence } from "framer-motion"
 
+import Heading from './Heading';
 import Image from 'next/image';
 import Link from 'next/link';
-import {motion} from "framer-motion";
+import Paragraph from './Paragraph';
+
 import styles from './grid.module.scss';
 
-const Grid = ({items}) => {
-    const sectionVariants={
-        closed: {opacity: 0},
-        open: {
-            opacity:1,
+import { convertPriceToFormattedString } from '../lib/utilities'; 
+
+const Grid = ({ items, activeItem }) => {
+    let sectionVariants = {
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+          transition: {
             staggerChildren: 0.2
+          }
         }
     }
+    const itemVariants = {
+        hidden: { y: 50, opacity: 0 },
+        show: { y: 0, opacity: 1 }
+    }
 
-const articleVariants={
-    closed:{ 
-        y:50, opacity:0
-    },
-    open:{y:0, opacity:1}
-}
-    return <motion.section 
-    initial="closed"
-    animate="open"
-    variants={sectionVariants}
-    className={styles.grid}>
+    return <AnimatePresence>
+        <motion.section 
+        key={`gridSection${activeItem}}`}
+        className={styles.grid}
+        variants={sectionVariants}
+        initial="hidden"
+        animate="show"
+        >
         {items.map((item, index) => {
-                    const { title, slug, vehicleInformation } = item.node;
-                    const { trimLevels } = vehicleInformation;
-                    return <motion.article 
-                    variants={articleVariants}
-                    key={index}>
-                        {trimLevels && trimLevels[0].images.thumbnail && 
-                            <Image 
-                                src={trimLevels[0].images.thumbnail.node.sourceUrl}
-                                alt={trimLevels[0].images.thumbnail.node.altText}
-                                width={trimLevels[0].images.thumbnail.node.mediaDetails.width}
-                                height={trimLevels[0].images.thumbnail.node.mediaDetails.height}
-                            />
-                        }
-                        <h3>{title}</h3>
-                        <p>
-                            <Link href={`/vehicles/${slug}`}>Learn more</Link>
-                        </p>
-                    </motion.article>
-                })}
-        
+            const { title, slug, vehicleInformation } = item.node;
+
+            const formattedPrice = convertPriceToFormattedString(vehicleInformation.trimLevels[0].msrp);
+
+            return <motion.article 
+                key={`gridItem${slug}${index}`}
+                className={styles.gridItem}
+                variants={itemVariants} 
+            >
+                <Link href={`/vehicles/${slug}`}>
+                    <Image 
+                        src={vehicleInformation.trimLevels[0].images.large.sourceUrl}
+                        alt={vehicleInformation.trimLevels[0].images.large.altText}
+                        width={vehicleInformation.trimLevels[0].images.large.mediaDetails.width}
+                        height={vehicleInformation.trimLevels[0].images.large.mediaDetails.height}
+                        className={styles.gridItemImage}
+                    />
+                </Link>
+                <Heading level={3}>
+                    <Link href={`/vehicles/${slug}`}>
+                    {title}
+                    </Link>
+                </Heading>
+                <Paragraph>Starting at <strong>{formattedPrice}</strong></Paragraph>
+            </motion.article>
+        })}
     </motion.section>
+    </AnimatePresence>
 }
 export default Grid;

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @mixin breakpoint($value) {
 
 	@if type-of($value) == 'string' {
@@ -47,18 +49,8 @@
 	
 }
 
-@mixin textAligns() {
-	$textAligns: left, center, right;
-
-	@each $textAlign in $textAligns {
-		&.text-align-#{$textAlign} {
-			text-align: $textAlign;
-		}
-	}
-}
-
 @mixin colors() {
-	$colors: black, white;
+	$colors: black, white, green, pink, blue, orange;
 
 	@each $color in $colors {
 		&.color-#{$color} {
@@ -66,13 +58,27 @@
 		}
 	}
 }
+@mixin textAligns() {
+	$alignment: left, center, right, justify;
 
-@mixin justifyContent(){
-	$values: flex-start, flex-end, center, space-between, space-around, 
-	space-evenly;
-	@each $vaule in $vaules{
-		&.justify-content-#{values} {
-			justify-content: $value;
-		};
+	@each $alignment in $alignment {
+		&.text-align-#{alignment} {
+			text-align: $alignment;
+		}
 	}
 }
+@mixin margins() {
+	$alignment: top,right, bottom, left;
+	@each $side in $sides {
+		@for $i from 1 through 12{
+			&.margins-#{side} {$i} {
+				margin-#{$side}:#{math.div($i,2)}rem;
+			}}}}
+
+@mixin justifyContents(){
+			$values: flex-start, flex-end, center, space-between, space-around,
+				space-evenly;
+@each $value in $values {
+				&.justify-content-#{$values} {
+	justify-content:$value;}}}
+

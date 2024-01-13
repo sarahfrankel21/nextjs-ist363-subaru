@@ -1,7 +1,5 @@
 import { useState } from 'react';
-
 import { getAllVehicles } from '../../lib/api';
-
 import Container from '../../components/Container';
 import Grid from '../../components/Grid';
 import Heading from '../../components/Heading';
@@ -34,8 +32,13 @@ const VehiclesPage = ({vehiclesData}) => {
           <Container>
             <Heading 
               level={1} 
+              color="black"
               textAlign="center"
+              marginBottom={12}
             >Vehicles</Heading>
+            <p>
+            <Link href={`/vehicles/${slug}`}>Learn more</Link>
+            </p>
             <Tabs 
               items={vehicleTypes} 
               activeItem={activeVehicleType}

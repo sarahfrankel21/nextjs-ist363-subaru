@@ -4,23 +4,25 @@ import ButtonGroup from './ButtonGroup';
 import Container from './Container';
 import Heading from './Heading';
 import Paragraph from './Paragraph';
+import styles from './customcalltoaction.module.scss'; 
 
-import styles from './calltoaction.module.scss';
-
-const CallToAction = ({ vehicleName }) => {
-    return <section className={styles.calltoaction}>
-        <Container>
-            <div className={styles.calltoaction_flexbox}>
-                <Heading level={2}>Get Behind the Wheel</Heading>
-                <Paragraph color="white">
-                    Start customizing your {vehicleName} today, or contact your local Subaru dealer to experience one in person.
-                </Paragraph>
-                <ButtonGroup>
-                    <Button label="Build & Price" type="primary" />
-                    <Button label="Contact Dealer" type="secondary" />
-                </ButtonGroup>
-            </div>
-        </Container>
+const CustomCallToAction = ({ modelName }) => {
+  return (
+    <section className={styles.customCallToAction}>
+      <Container>
+        <div className={styles.ctaFlexbox}>
+          <Heading level={2}>Explore {modelName}</Heading>
+          <Paragraph color="white">
+            Customize your {modelName} today or get in touch with your local dealership to experience it firsthand.
+          </Paragraph>
+          <ButtonGroup>
+            <Button label="Build & Personalize" type="primary" />
+            <Button label="Contact Local Dealer" type="secondary" />
+          </ButtonGroup>
+        </div>
+      </Container>
     </section>
-}
-export default CallToAction;
+  );
+};
+
+export default CustomCallToAction;

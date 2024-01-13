@@ -7,7 +7,14 @@
     margin-bottom: 2rem;
     @include mixins.breakpoint(laptop) {
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: column-reverse;
+    }
+    &_text {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;  
+        color: white;    
     }
     &_image {
         position: relative;
@@ -29,7 +36,6 @@
         }
         &_wrapper {
             position: relative;
-          
             z-index: 2;
         }
         &_large {
@@ -37,13 +43,11 @@
             height: auto;
             position: relative;
         }
-    }
-    &_text {
-        padding: 2rem;
-    
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;  
-        color: white;    
+        &_foreground {
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 2;
+          }
     }
 }

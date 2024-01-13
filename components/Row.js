@@ -1,15 +1,15 @@
 import styles from './row.module.scss';
-import classNames from 'classnames/bind';
+import classnames from 'classnames/bind';
 
-const cx = classNames.bind(styles);
+const cx= classnames.bind(styles);
+const Row=({children, justifiyContent})=>{
+    const rowClasses= cx ({
+        row:true,
+        [`justify-content-${justifiyContent}`] : justifiyContent
+    });
 
-const Row = ({ children, justifyContent }) => {
-  const rowClasses = cx({
-    row: true,
-    [`justify-content-${justifyContent}`]: justifyContent,
-  });
+    return <div className={rowClasses}>{children}</div>}
 
-  return <div className={rowClasses}>{children}</div>;
-};
+    export default Row;
 
-export default Row;
+

@@ -5,12 +5,14 @@ import Image from 'next/image';
 import Layout from '../../components/Layout';
 import Showcase from '../../components/Showcase';
 import TrimPicker from '../../components/TrimPicker';
+import {getDrivingLocations} from'../../lib/locations';
+import head from '/next/head';
 
 import { getAllVehicleSlugs, getVehicleDataBySlug } from '../../lib/api'
 
 export async function getStaticPaths() {
     const vehicles = await getAllVehicleSlugs();
-    //console.log({vehicles});
+  
     const paths = vehicles.map((vehicle) => {
         return {
             params: {
@@ -21,33 +23,40 @@ export async function getStaticPaths() {
     
     return {
       paths: paths,
-      fallback: false, // can also be true or 'blocking'
+      fallback: false, 
     }
   }
+  export async function getStaticProps({ params }) {
+    const vehicleData = await getVehicleBySlug(params.id);
+    const drivingLocations = getDrivingLocations();
   
-  // `getStaticPaths` requires using `getStaticProps`
-  export async function getStaticProps({params}) {
-    const { id } = params;
-    //console.log({id});
-    const vehicleData = await getVehicleDataBySlug(id);
     return {
-      // Passed to the page component as props
-      props: { 
-        vehicleData
+      props: {
+        vehicleData,
+        drivingLocations,
       },
-    }
-  }
+    };
+  } 
   
   export default function SingleVehiclePage({ vehicleData }) {
-    const { title, featuredImage, vehicleInformation } = vehicleData;
-    const { showcase, trimLevels, vehicleColors  } = vehicleInformation;
-    //console.log({trimLevels});
+    const { title, slug, featuredImage, vehicleInformation } = vehicleData;
+    const {headline}=vehicleInformation.showcase;
+    const { trimLevels  } = vehicleInformation;
+  
     return <Layout>
+      <Head><title> 
+        Subaru USA
+        </title> </Head>
         <Showcase 
-          subheadline={`Subaru ${title}`}
-          headline={showcase.headline ? showcase.headline : null}
-          backgroundImage={featuredImage ? featuredImage.node : null}
+        subtitle={title}
+        title={headline}
+          featuredImage={featuredImage}
         />
+        <div id="main-content">
+  <Container>
+    <TrimPicker trims={trimLevels} locations={drivingLocations} />
+  </Container>
+</div>
         <Container>
           <TrimPicker trimLevels={trimLevels} />
           <ColorPicker vehicleColors={vehicleColors} />

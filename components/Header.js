@@ -1,34 +1,43 @@
 import { useState } from 'react';
-
+import { AnimatePresence } from 'framer-motion';
 import Button from './Button';
 import ButtonUI from './ButtonUI';
 import Link from 'next/link';
 import Logo from './Logo';
-import NavDesktop from './NavDesktop';
-import NavOverlay from './NavOverlay';
-
+import Row from 'row';
 import styles from './header.module.scss';
+import Container from './Container';
+import Nav from './Nav'; 
 
 const Header = () => {
-    const [isMenuVisible, setMenuVisible] = useState(false);
-    return <header className={styles.header}>
-        <Link href="/">
+    const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  
+    return (
+      <header className={styles.header}>
+        <Container>
+          <Row justifyContent="space-between">
             <Logo />
-        </Link>
-        <ButtonUI 
-            icon="menu" 
-            clickHandler={() => {
-                setMenuVisible(true);
-            }}
-        />
-        <NavDesktop />
-        {isMenuVisible && 
-            <NavOverlay 
-                closeHandler={() => {
-                    setMenuVisible(false);
-                }} 
-            />
-        }
-    </header>   
-}
-export default Header
+            <Nav.Desktop />
+            <ButtonUI
+  icon="menu"
+  clickHandler={() => {
+    setIsMobileNavOpen(true);
+  }}
+/>
+{isMobileNavOpen && <Nav.Mobile closeHandler={() => setIsMobileNavOpen(false)} />}
+
+          </Row>
+        </Container>
+      </header>
+    );
+<AnimatePresence>
+  {isMobileNavOpen && (
+    <Nav.Mobile closeHandler={() => setIsMobileNavOpen(false)} />
+  )}
+</AnimatePresence>
+
+  
+  
+  export default Header;
+
+  }; 

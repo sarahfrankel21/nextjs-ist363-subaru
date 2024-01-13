@@ -1,0 +1,49 @@
+.nav {
+    background-color: green;
+    &_desktop{ background-color: red;
+     }
+     &_desktop {
+        display: none;
+      
+        @include mixins.breakpoint(laptop) {
+          display: block;
+        }
+      }
+      
+      &_mobile {
+        @include mixins.breakpoint(laptop) {
+          background-color: vars.$color__primary ;
+          height:100vh;
+          width:100vw;
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 1000;
+          display: none;
+          justify-content: center;
+          align-items: center;
+          @include mixins.breakpoint(laptop)
+          {
+            display: none;
+          }
+          .nav_list {
+            flex-direction: column;
+            align-items: flex-start;
+        
+          &_item {
+            .a {
+            font-size: 1.5rem;
+          }
+        }
+      }
+     &_list{
+
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+   &_item{
+    .a{font-family: Arial;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;}}}}

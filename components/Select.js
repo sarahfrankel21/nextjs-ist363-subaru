@@ -1,22 +1,23 @@
 import styles from './select.module.scss';
 
-const Select = ({ 
-    changeHandler, 
-    options 
-}) => {
-    return <select 
-        onChange={(event) => {
+
+const Select = ({ changeHandler, options }) => {
+    return (
+        <select
+          className={styles.select}
+          onChange={(event) => {
             event.preventDefault();
-            changeHandler(event.target.value);
-        }} 
-        className={styles.select}
-    >
-       {options.map((option, index) => {
-            const { value, label } = option;
-            return <option key={`option${index}`} value={value}>
+            changeHandler(parseInt(event.target.value));
+          }}
+        >
+          {options?.map((option, index) => {
+            const { label, value } = option;
+            return (
+              <option key={index} value={value}>
                 {label}
-            </option>
-       })}
-    </select>
-}
-export default Select;
+              </option>
+            );
+          })}
+        </select>
+      );
+        }      

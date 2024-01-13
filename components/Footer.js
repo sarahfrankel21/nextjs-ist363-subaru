@@ -1,14 +1,16 @@
-import Heading from './Heading';
-import NavSocialMedia from './NavSocialMedia';
-import Paragraph from './Paragraph';
-
+import React from 'react';
+import Container from './Container';
 import styles from './footer.module.scss';
 
 const Footer = () => {
-    return <footer className={styles.footer}>
-        <Heading level={2}>Connect with us</Heading>
-        <NavSocialMedia />
-        <Paragraph>Copyright 2023 Subaru.</Paragraph>
+  return (
+    <footer className={styles.footer}>
+      <Container>
+        {}
+        <p>&copy; 2024 Your Website Name. All rights reserved.</p>
+      </Container>
     </footer>
-}
-export default Footer
+  );
+};
+
+export default Footer;

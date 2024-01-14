@@ -1,6 +1,5 @@
 
 import Button from './Button';
-import ButtonGroup from './ButtonGroup';
 import Container from './Container';
 import Heading from './Heading';
 import Paragraph from './Paragraph';

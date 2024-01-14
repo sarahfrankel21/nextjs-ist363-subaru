@@ -9,7 +9,7 @@ const SoppingToolsPage = () => {
       <Container>
       <Heading level={1} textAlign="center">Shopping Tools</Heading>
         <Paragraph>
-          Looking to buy a Subaru car or SUV? Customize your perfect Subaru vehicle with our tools. Choose models, trims, options, and colors. Build yours today!
+        Select a model to compare against other Subaru models and manufacturers.
         </Paragraph>
       </Container>
     </Layout>

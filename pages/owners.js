@@ -9,7 +9,8 @@ const OwnersPage = () => {
       <Container>
       <Heading level={1} textAlign="center">CommitmentPage</Heading>
         <Paragraph>
-          Looking to buy a Subaru car or SUV? Customize your perfect Subaru vehicle with our tools. Choose models, trims, options, and colors. Build yours today!
+        All about your Subaru, all in one place.
+Everything you need to know about keeping your Subaru adventure-ready for a lifetime of miles is right here.
         </Paragraph>
       </Container>
     </Layout>

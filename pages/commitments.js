@@ -9,7 +9,8 @@ const CommitmentPage = () => {
       <Container>
       <Heading level={1} textAlign="center">CommitmentPage</Heading>
         <Paragraph>
-          Looking to buy a Subaru car or SUV? Customize your perfect Subaru vehicle with our tools. Choose models, trims, options, and colors. Build yours today!
+        Commitment. It is How We Operate.
+At Subaru, we believe every day gives us the opportunity to positively impact the world around us from how we build our vehicles to how we support our customers and the communities they live in. We are committed to doing it right in every aspect. 
         </Paragraph>
       </Container>
     </Layout>

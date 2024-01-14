@@ -9,7 +9,8 @@ const BuildPricePage = () => {
         <Container>
           <Heading level={1} textAlign="center">Build & Prices</Heading>
           <Paragraph>
-            Looking to buy a Subaru car or SUV? Customize your perfect Subaru vehicle with our tools. Choose models, trims, options, and colors. Build yours today!
+          See how different Subaru models stack up.
+Use our compare tool to break down Subaru models and features. You can even compare them to other manufacturers. 
           </Paragraph>
         </Container>
       </Layout>
